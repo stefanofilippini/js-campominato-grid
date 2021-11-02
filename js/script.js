@@ -1,53 +1,62 @@
 console.log('OK JS');
 
+const setBtn = document.querySelector('#set-dim');
 const body = document.querySelector('.body')
-const diff = parseInt(prompt('seleziona difficoltà'))
+const dimensionLevel = document.getElementById('dimensions')
 
-const container = document.createElement('div')
-container.classList.add ('container')
+setBtn.addEventListener('click', () => {
+    body.innerHTML = '';
 
-body.append(container)
+    const container = document.createElement('div')
+    container.classList.add ('container')
 
-let cellsNumber
-let cellPerSide
+    body.append(container)
 
-switch (diff) {
-    case 3:
-        cellsNumber = 100;
-        cellPerSide = 10;
-        break;
-    
-    case 2:
-        cellsNumber = 81;
-        cellPerSide = 9;
-        break;
+    const grid_dim = dimensionLevel.value;
+    let cellsNumber
+    let cellPerSide
 
-    case 1:
-        cellsNumber = 49;
-        cellPerSide = 7;
-        break;
-}
+    switch (grid_dim) {
+        case '3':
+            cellsNumber = 100;
+            cellPerSide = 10;
+            break;
+        
+        case '2':
+            cellsNumber = 81;
+            cellPerSide = 9;
+            break;
 
-for (let i = 1; i <= cellsNumber; i++) {
-    const square = createGridSquare(i, cellPerSide);
-    container.append(square);
-}
+        case '1':
+            cellsNumber = 49;
+            cellPerSide = 7;
+            break;
+    }
 
-function createGridSquare(num, cells) {
-    // pari o dispari
-    // operatore ternario
-    const type = (num % 2 === 0) ? 'even' : 'odd';
+    for (let i = 1; i <= cellsNumber; i++) {
+        const square = createGridSquare(i, cellPerSide);
+        container.append(square);
 
-    // creiamo nodo .square
-    const node = document.createElement('div');
-    node.classList.add('square', `square-${type}`);
-    node.style.width = `calc( 100% / ${cells})`;
-    node.style.height = `calc(100% / ${cells})`;
+        square.addEventListener('click', function() {
+        this.classList.add('active')});
+    }
 
-    //nodo span per il testo
-    const span = document.createElement('span');
-    span.append(num);
-    node.append(span);
+    function createGridSquare(num, cells) {
+        // pari o dispari
+        // operatore ternario
+        const type = (num % 2 === 0) ? 'even' : 'odd';
 
-    return node;
-}
+        // creiamo nodo .square
+        const node = document.createElement('div');
+        node.classList.add('square', `square-${type}`);
+        node.style.width = `calc( 100% / ${cells})`;
+        node.style.height = `calc(100% / ${cells})`;
+
+        //nodo span per il testo
+        const span = document.createElement('span');
+        span.append(num);
+        node.append(span);
+
+        return node;
+    }
+});
