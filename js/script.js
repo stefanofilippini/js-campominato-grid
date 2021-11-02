@@ -1,14 +1,35 @@
 console.log('OK JS');
 
 const body = document.querySelector('.body')
+const diff = parseInt(prompt('seleziona difficoltà'))
 
 const container = document.createElement('div')
 container.classList.add ('container')
 
 body.append(container)
 
-for (let i = 0; i < 100; i++) {
-    const square = createGridSquare(100, 10);
+let cellsNumber
+let cellPerSide
+
+switch (diff) {
+    case 3:
+        cellsNumber = 100;
+        cellPerSide = 10;
+        break;
+    
+    case 2:
+        cellsNumber = 81;
+        cellPerSide = 9;
+        break;
+
+    case 1:
+        cellsNumber = 49;
+        cellPerSide = 7;
+        break;
+}
+
+for (let i = 1; i <= cellsNumber; i++) {
+    const square = createGridSquare(i, cellPerSide);
     container.append(square);
 }
 
